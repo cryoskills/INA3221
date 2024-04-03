@@ -399,6 +399,7 @@ int32_t INA3221::getShuntVoltage(ina3221_ch_t channel) {
     int32_t res;
     ina3221_reg_t reg;
     uint16_t val_raw = 0;
+    uint32_t val_raw_signed = 0;
 
     switch (channel) {
         case INA3221_CH1:
@@ -417,7 +418,7 @@ int32_t INA3221::getShuntVoltage(ina3221_ch_t channel) {
 
     // 1 LSB = 40uV
     // JH modification - support for negative current (26/3/24)
-    res = (int32_t)(val_raw_signed / 8) * 40;
+    res = (val_raw_signed / 8) * 40;
 
     return res;
 }
